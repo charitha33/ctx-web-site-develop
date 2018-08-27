@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" type="text/html">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Checkout Page</title>
+  <meta name="description" content="">
+  <link rel="stylesheet" type="text/css" href="app.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="app.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.7.1/less.min.js" ></script>
+</head>
+<body>
+<div class="checkout">
+  <div class="checkout-container">
+    <div class="checkout-featured">
+      <img src="../images/nike2.jpg" class="checkout-product" />
+    </div>
+    <div class="checkout-content">
+      <h2>Your payment details</h2>
+      <form>
+        <ul class="form-list">
+          <li class="form-list-row">
+            <label>Name</label>
+            <input name="checkout_name" pattern="[a-zA-Z]*" oninvalid="setCustomValidity('Please enter a valid name')" required type="text"
+                   name="first_name" >
+          </li>
+          <li class="form-list-row form-list-row-inline">
+            <div>
+              <label>Card type</label>
+              <div class="form-list-input-inline">
+                <select>
+                  <option value="01">Visa</option>
+                  <option value="02">Master</option>
+                  <option value="03">Mastreo</option>
+                </select>
+              </div>
+            </div>
+          </li>
+          <li class="form-list-row">
+            <label>Card Number</label>
+            <div id="input--checkout">
+              <input id="txtCardNumber" name="checkout_number" required maxlength="19"
+                     oninvalid="this.setCustomValidity('Enter valid Card Number')">
+            </div>
+          <li class="form-list-row form-list-row-inline">
+            <div>
+              <label>Expiration Date</label>
+              <div class="form-list-input-inline">
+                <select>
+                  <option value="01">01</option>
+                  <option value="02">02</option>
+                  <option value="03">03</option>
+                  <option value="04">04</option>
+                  <option value="05">05</option>
+                  <option value="06">06</option>
+                  <option value="07">07</option>
+                  <option value="08">08</option>
+                  <option value="09">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+                <input name="checkout_year" placeholder="YYYY"  minlength="4" maxlength="4" required oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('Enter Year')"
+                />
+              </div>
+            </div>
+            <div>
+              <label>
+                CVV
+              </label>
+              <input type="text" id="cvv" name="checkout_cvv" placeholder="123" pattern="\d*" required minlength="3" maxlength="3"
+                     oninvalid="this.setCustomValidity('Enter CVV')"/>
+            </div>
+          </li>
+          <li class="form-save form-list-row form-list-row-agree">
+              <input type="checkbox" class="form-list-row-agree-input " name="save_checkout">
+              <span>Save my card for future purchases</span>
+          </li>
+          <li>
+            <button type="submit" class="button" >Pay Now</button>
+          </li>
+        </ul>
+      </form>
+    </div> <!-- END checkout-content -->
+  </div> <!-- END checkout-container -->
+</div> <!-- END checkout -->
+
+<script>
+    var txtCardNumber = document.querySelector("#txtCardNumber");
+    txtCardNumber.addEventListener("input", onChangeTxtCardNumber);
+
+    function onChangeTxtCardNumber(e) {
+        var cardNumber = txtCardNumber.value;
+        // Do not allow users to write invalid characters
+        var formattedCardNumber = cardNumber.replace(/[^\d]/g, "");
+        formattedCardNumber = formattedCardNumber.substring(0, 16);
+        // Split the card number is groups of 4
+        var cardNumberSections = formattedCardNumber.match(/\d{1,4}/g);
+        if (cardNumberSections !== null) {
+            formattedCardNumber = cardNumberSections.join(' ');
+        }
+        // If the formmattedCardNumber
+        if (cardNumber !== formattedCardNumber) {
+            txtCardNumber.value = formattedCardNumber;
+        }
+    }
+</script>
+
+</body>
+</html>
